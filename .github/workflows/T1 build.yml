@@ -1,4 +1,4 @@
-name: T2 Build
+name: T1 Build
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: Build
-        uses: kenzok8/gh-action-sdk@hash
+        uses: openwrt/gh-action-sdk@hash
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.sdk }}
           FEEDNAME: packages_ci
