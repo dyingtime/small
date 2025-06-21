@@ -32,7 +32,7 @@ jobs:
           NO_REFRESH_CHECK: true
           IGNORE_ERRORS: true
           NO_DEFAULT_FEEDS: true
-          EXTRA_FEEDS: "https://github.com/dimfishr/openwrt.git;qualcommax-6.1-nss"
+          EXTRA_FEEDS: "src-git|custom|https://github.com/dimfishr/openwrt.git^qualcommax-6.1-nss"
 
       - name: Store packages
         uses: actions/upload-artifact@main
