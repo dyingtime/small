@@ -31,8 +31,6 @@ jobs:
           PACKAGES: luci-app-ssr-plus hysteria ipt2socks redsocks2 shadow-tls trojan tuic-client xray-plugin v2ray-core v2ray-geodata naiveproxy simple-obfs 
           NO_REFRESH_CHECK: true
           IGNORE_ERRORS: true
-          NO_DEFAULT_FEEDS: true
-          EXTRA_FEEDS: "src-git|custom|https://github.com/dimfishr/openwrt.git^qualcommax-6.1-nss"
 
       - name: Store packages
         uses: actions/upload-artifact@main
