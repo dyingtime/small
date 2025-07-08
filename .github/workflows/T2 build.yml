@@ -1,4 +1,4 @@
-name: T2 Build
+name: T1 Build
 
 on:
   workflow_dispatch:
@@ -14,10 +14,9 @@ jobs:
       fail-fast: false
       matrix:
         sdk:
-          - 23.05.2
+          - master
         arch:
           - aarch64_cortex-a53
-          - x86_64
 
     steps:
       - uses: actions/checkout@main
@@ -25,11 +24,11 @@ jobs:
           fetch-depth: 0
 
       - name: Build
-        uses: kenzok8/gh-action-sdk@hash
+        uses: openwrt/gh-action-sdk@hash
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.sdk }}
           FEEDNAME: packages_ci
-          PACKAGES: luci-app-fchomo luci-app-homeproxy luci-app-nikki luci-app-openclash luci-app-passwall luci-app-passwall2 luci-app-ssr-plus luci-app-bypass brook hysteria ipt2socks pdnsd-alt redsocks2 shadow-tls trojan tuic-client xray-plugin v2ray-core v2ray-geodata naiveproxy sing-box
+          PACKAGES: shadowsocksr-libev
           NO_REFRESH_CHECK: true
           IGNORE_ERRORS: true
 
