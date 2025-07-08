@@ -35,7 +35,7 @@ define Package/shadowsocksr-libev/Default
   endef
 endef
 
-SHADOWSOCKSR_COMPONENTS:=check local nat redir server
+SHADOWSOCKSR_COMPONENTS:=check local nat redir server tunnel
 define shadowsocksr-libev/templates
   $(foreach component,$(SHADOWSOCKSR_COMPONENTS),
     $(call Package/shadowsocksr-libev/Default,$(component))
