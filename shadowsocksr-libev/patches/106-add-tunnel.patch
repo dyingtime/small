@@ -1,0 +1,217 @@
+From 17ad4056db214363e17fdba8c7ee8b4d9d1b0033 Mon Sep 17 00:00:00 2001
+From: "wes.lin" <wes.lin@ringcentral.com>
+Date: Tue, 8 Jul 2025 16:09:37 +0800
+Subject: [PATCH] add tunnel
+
+---
+ src/Makefile.am | 30 +++++++++++++++---------------
+ src/Makefile.in | 46 +++++++++++++++++++++++-----------------------
+ 2 files changed, 38 insertions(+), 38 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index eea1300..9610e94 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -22,7 +22,7 @@ SS_COMMON_LIBS += $(top_builddir)/libev/libev.la \
+ endif
+ 
+ bin_PROGRAMS = ss-local
+-#bin_PROGRAMS += ss-tunnel
++bin_PROGRAMS += ss-tunnel
+ if !BUILD_WINCOMPAT
+ #bin_PROGRAMS += ss-server ss-manager
+ endif
+@@ -42,15 +42,15 @@ ss_local_SOURCES = utils.c \
+                    local.c \
+                    $(sni_src)
+ 
+-#ss_tunnel_SOURCES = utils.c \
+-#                    jconf.c \
+-#                    json.c \
+-#                    encrypt.c \
+-#                    udprelay.c \
+-#                    cache.c \
+-#                    netutils.c \
+-#                    tunnel.c
+-#
++ss_tunnel_SOURCES = utils.c \
++                    jconf.c \
++                    json.c \
++                    encrypt.c \
++                    udprelay.c \
++                    cache.c \
++                    netutils.c \
++                    tunnel.c
++
+ #ss_server_SOURCES = utils.c \
+ #                    netutils.c \
+ #                    jconf.c \
+@@ -69,27 +69,27 @@ ss_local_SOURCES = utils.c \
+ #                     manager.c
+ 
+ ss_local_LDADD = $(SS_COMMON_LIBS)
+-#ss_tunnel_LDADD = $(SS_COMMON_LIBS)
++ss_tunnel_LDADD = $(SS_COMMON_LIBS)
+ #ss_server_LDADD = $(SS_COMMON_LIBS)
+ #ss_manager_LDADD = $(SS_COMMON_LIBS)
+ if USE_SYSTEM_SHARED_LIB
+ ss_local_LDADD += -ludns
+-#ss_tunnel_LDADD += -ludns
++ss_tunnel_LDADD += -ludns
+ #ss_server_LDADD += -ludns
+ else
+ ss_local_LDADD += $(top_builddir)/libudns/libudns.la
+-#ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
++ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
+ #ss_server_LDADD += $(top_builddir)/libudns/libudns.la
+ endif
+ 
+ ss_local_CFLAGS = $(AM_CFLAGS) -DMODULE_LOCAL
+-#ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
++ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
+ #ss_server_CFLAGS = $(AM_CFLAGS) -DMODULE_REMOTE
+ #ss_manager_CFLAGS = $(AM_CFLAGS) -DMODULE_MANAGER
+ 
+ if BUILD_WINCOMPAT
+ ss_local_SOURCES += win32.c
+-#ss_tunnel_SOURCES += win32.c
++ss_tunnel_SOURCES += win32.c
+ endif
+ 
+ if BUILD_REDIRECTOR
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 66fac07..39f2f03 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -99,14 +99,14 @@ host_triplet = @host@
+ @USE_SYSTEM_SHARED_LIB_FALSE@                  $(top_builddir)/libsodium/src/libsodium/libsodium.la
+ 
+ bin_PROGRAMS = ss-local$(EXEEXT) $(am__EXEEXT_1)
+-#ss_tunnel_LDADD = $(SS_COMMON_LIBS)
++ss_tunnel_LDADD = $(SS_COMMON_LIBS)
+ #ss_server_LDADD = $(SS_COMMON_LIBS)
+ #ss_manager_LDADD = $(SS_COMMON_LIBS)
+ @USE_SYSTEM_SHARED_LIB_TRUE@am__append_4 = -ludns
+-#ss_tunnel_LDADD += -ludns
++ss_tunnel_LDADD += -ludns
+ #ss_server_LDADD += -ludns
+ @USE_SYSTEM_SHARED_LIB_FALSE@am__append_5 = $(top_builddir)/libudns/libudns.la
+-#ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
++ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
+ #ss_server_CFLAGS = $(AM_CFLAGS) -DMODULE_REMOTE
+ #ss_manager_CFLAGS = $(AM_CFLAGS) -DMODULE_MANAGER
+ @BUILD_WINCOMPAT_TRUE@am__append_6 = win32.c
+@@ -192,7 +192,7 @@ libshadowsocks_libev_la_OBJECTS =  \
+ AM_V_lt = $(am__v_lt_@AM_V@)
+ am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+ am__v_lt_0 = --silent
+-am__v_lt_1 = 
++am__v_lt_1 =
+ libshadowsocks_libev_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+ 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+ 	$(libshadowsocks_libev_la_CFLAGS) $(CFLAGS) \
+@@ -244,11 +244,11 @@ am__v_P_1 = :
+ AM_V_GEN = $(am__v_GEN_@AM_V@)
+ am__v_GEN_ = $(am__v_GEN_@AM_DEFAULT_V@)
+ am__v_GEN_0 = @echo "  GEN     " $@;
+-am__v_GEN_1 = 
++am__v_GEN_1 =
+ AM_V_at = $(am__v_at_@AM_V@)
+ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
+ am__v_at_0 = @
+-am__v_at_1 = 
++am__v_at_1 =
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+ depcomp = $(SHELL) $(top_srcdir)/auto/depcomp
+ am__depfiles_maybe = depfiles
+@@ -262,7 +262,7 @@ LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+ AM_V_CC = $(am__v_CC_@AM_V@)
+ am__v_CC_ = $(am__v_CC_@AM_DEFAULT_V@)
+ am__v_CC_0 = @echo "  CC      " $@;
+-am__v_CC_1 = 
++am__v_CC_1 =
+ CCLD = $(CC)
+ LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+@@ -270,7 +270,7 @@ LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
+ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
+ am__v_CCLD_0 = @echo "  CCLD    " $@;
+-am__v_CCLD_1 = 
++am__v_CCLD_1 =
+ SOURCES = $(libshadowsocks_libev_la_SOURCES) $(ss_local_SOURCES) \
+ 	$(ss_redir_SOURCES)
+ DIST_SOURCES = $(am__libshadowsocks_libev_la_SOURCES_DIST) \
+@@ -441,7 +441,7 @@ AM_CFLAGS = -g -O2 -Wall -Werror -Wno-deprecated-declarations \
+ SS_COMMON_LIBS = $(top_builddir)/libipset/libipset.la \
+ 	$(top_builddir)/libcork/libcork.la $(INET_NTOP_LIB) \
+ 	$(LIBPCRE_LIBS) $(am__append_2) $(am__append_3)
+-#bin_PROGRAMS += ss-tunnel
++bin_PROGRAMS += ss-tunnel
+ #bin_PROGRAMS += ss-server ss-manager
+ sni_src = http.c \
+           tls.c \
+@@ -450,15 +450,15 @@ sni_src = http.c \
+ ss_local_SOURCES = utils.c jconf.c json.c encrypt.c udprelay.c cache.c \
+ 	acl.c netutils.c local.c $(sni_src) $(am__append_6)
+ 
+-#ss_tunnel_SOURCES = utils.c \
+-#                    jconf.c \
+-#                    json.c \
+-#                    encrypt.c \
+-#                    udprelay.c \
+-#                    cache.c \
+-#                    netutils.c \
+-#                    tunnel.c
+-#
++ss_tunnel_SOURCES = utils.c \
++                    jconf.c \
++                    json.c \
++                    encrypt.c \
++                    udprelay.c \
++                    cache.c \
++                    netutils.c \
++                    tunnel.c
++
+ #ss_server_SOURCES = utils.c \
+ #                    netutils.c \
+ #                    jconf.c \
+@@ -476,10 +476,10 @@ ss_local_SOURCES = utils.c jconf.c json.c encrypt.c udprelay.c cache.c \
+ #                     json.c \
+ #                     manager.c
+ ss_local_LDADD = $(SS_COMMON_LIBS) $(am__append_4) $(am__append_5)
+-#ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
++ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
+ #ss_server_LDADD += $(top_builddir)/libudns/libudns.la
+ ss_local_CFLAGS = $(AM_CFLAGS) -DMODULE_LOCAL
+-#ss_tunnel_SOURCES += win32.c
++ss_tunnel_SOURCES += win32.c
+ @BUILD_REDIRECTOR_TRUE@bin_SCRIPTS = ss-nat
+ @BUILD_REDIRECTOR_TRUE@ss_redir_SOURCES = utils.c \
+ @BUILD_REDIRECTOR_TRUE@                   jconf.c \
+@@ -569,7 +569,7 @@ clean-libLTLIBRARIES:
+ 	  rm -f $${locs}; \
+ 	}
+ 
+-libshadowsocks-libev.la: $(libshadowsocks_libev_la_OBJECTS) $(libshadowsocks_libev_la_DEPENDENCIES) $(EXTRA_libshadowsocks_libev_la_DEPENDENCIES) 
++libshadowsocks-libev.la: $(libshadowsocks_libev_la_OBJECTS) $(libshadowsocks_libev_la_DEPENDENCIES) $(EXTRA_libshadowsocks_libev_la_DEPENDENCIES)
+ 	$(AM_V_CCLD)$(libshadowsocks_libev_la_LINK) -rpath $(libdir) $(libshadowsocks_libev_la_OBJECTS) $(libshadowsocks_libev_la_LIBADD) $(LIBS)
+ install-binPROGRAMS: $(bin_PROGRAMS)
+ 	@$(NORMAL_INSTALL)
+@@ -621,11 +621,11 @@ clean-binPROGRAMS:
+ 	echo " rm -f" $$list; \
+ 	rm -f $$list
+ 
+-ss-local$(EXEEXT): $(ss_local_OBJECTS) $(ss_local_DEPENDENCIES) $(EXTRA_ss_local_DEPENDENCIES) 
++ss-local$(EXEEXT): $(ss_local_OBJECTS) $(ss_local_DEPENDENCIES) $(EXTRA_ss_local_DEPENDENCIES)
+ 	@rm -f ss-local$(EXEEXT)
+ 	$(AM_V_CCLD)$(ss_local_LINK) $(ss_local_OBJECTS) $(ss_local_LDADD) $(LIBS)
+ 
+-ss-redir$(EXEEXT): $(ss_redir_OBJECTS) $(ss_redir_DEPENDENCIES) $(EXTRA_ss_redir_DEPENDENCIES) 
++ss-redir$(EXEEXT): $(ss_redir_OBJECTS) $(ss_redir_DEPENDENCIES) $(EXTRA_ss_redir_DEPENDENCIES)
+ 	@rm -f ss-redir$(EXEEXT)
+ 	$(AM_V_CCLD)$(ss_redir_LINK) $(ss_redir_OBJECTS) $(ss_redir_LDADD) $(LIBS)
+ install-binSCRIPTS: $(bin_SCRIPTS)
+-- 
+2.39.3 (Apple Git-146)
+
