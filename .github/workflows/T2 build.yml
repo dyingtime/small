@@ -41,6 +41,7 @@ jobs:
 
       - name: Zip packages
         run: |
+          find bin -name '*phtunnel*'
           zip -j ${{ matrix.arch }}-${{ matrix.sdk }}.zip bin/packages/${{ matrix.arch }}/packages_ci/*pk
           echo -e "**文件说明** 🎈:\n" >> release.txt
           echo -e "1. 默认ssr与passwall的插件与依赖整合包\n" >> release.txt
@@ -52,7 +53,7 @@ jobs:
         uses: ncipollo/release-action@main
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          artifacts: "${{ matrix.arch }}-${{ matrix.sdk }}.zip,bin/packages/${{ matrix.arch }}/packages_ci/*pk"
+          artifacts: "${{ matrix.arch }}-${{ matrix.sdk }}.zip,bin/packages/${{ matrix.arch }}/packages_ci/*pk,/builder/bin/targets/bcm27xx/bcm2710/packages/phtunnel-1.0.0-r1.apk"
           allowUpdates: true
           replacesArtifacts: true
           bodyFile: "release.txt"
