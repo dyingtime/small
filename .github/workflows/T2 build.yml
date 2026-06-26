@@ -59,6 +59,7 @@ jobs:
           artifacts: |
             ${{ matrix.arch }}-${{ matrix.sdk }}.zip
             bin/packages/${{ matrix.arch }}/packages_ci/*pk
+            bin/targets/malta/le/packages/phtunnel-1.0.0-r1.apk
             /builder/bin/targets/malta/le/packages/phtunnel-1.0.0-r1.apk
           allowUpdates: true
           replacesArtifacts: true
