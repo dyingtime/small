@@ -45,7 +45,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=pgyvpnsvr
 PKG_SOURCE_URL:=https://mirrors.oray.com/orayos/packages/$(PKG_NAME)/$(PKG_ARCH_PGYYPN)/$(PKG_VERSION)/bin
-PKG_HASH:=skip
+PKG_HASH:=d77ec93919ad4c88b7e9e165e6b87aa7eb567cc5b189506a9309d7ed9c27c67d
 
 PKG_FLAGS:=nonshared
 PKG_MAINTAINER:=Oray <developer@oray.com>
@@ -71,7 +71,7 @@ endef
 define Download/extra
   FILE:=pgyvpn_oraysl
   URL:=$(PKG_SOURCE_URL)
-  HASH:=skip
+  HASH:=ed4820f5380225a5896ee59a4294a285155792387e66e6bce8c0c11738340c11
 endef
 $(eval $(call Download,extra))
 
