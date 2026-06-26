@@ -16,7 +16,7 @@ jobs:
         sdk:
           - 25.12.2
         arch:
-          - aarch64_cortex-a53
+          - mipsel_24kc
 
     steps:
       - uses: actions/checkout@main
@@ -28,10 +28,13 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.sdk }}
           FEEDNAME: packages_ci
-          PACKAGES: luci-app-phtunnel phtunnel
+          PACKAGES: phtunnel luci-app-phtunnel
           NO_REFRESH_CHECK: true
-          IGNORE_ERRORS: true
           V: s
+      
+      - name: List packages
+        run: |
+          find bin -name "*phtunnel*"
 
       - name: Store packages
         uses: actions/upload-artifact@main
@@ -53,7 +56,11 @@ jobs:
         uses: ncipollo/release-action@main
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          artifacts: "${{ matrix.arch }}-${{ matrix.sdk }}.zip,bin/packages/${{ matrix.arch }}/packages_ci/*pk,/builder/bin/targets/bcm27xx/bcm2710/packages/phtunnel-1.0.0-r1.apk"
+          artifacts: |
+            ${{ matrix.arch }}-${{ matrix.sdk }}.zip
+            bin/packages/${{ matrix.arch }}/packages_ci/*pk
+            bin/targets/malta/le/packages/phtunnel-1.0.0-r1.apk
+            /builder/bin/targets/malta/le/packages/phtunnel-1.0.0-r1.apk
           allowUpdates: true
           replacesArtifacts: true
           bodyFile: "release.txt"

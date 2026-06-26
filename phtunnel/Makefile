@@ -43,7 +43,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=phtunnel
 PKG_SOURCE_URL:=https://mirrors.oray.com/orayos/packages/$(PKG_NAME)/$(PKG_ARCH_PHT)/$(PKG_VERSION)/bin
-PKG_HASH:=a3d8c5e48ea9d5c2a2906dba01769a34403d5088de9e2b561c42313216f6d4f5
+PKG_HASH:=9d224f3ee8f22fe642bc23d1863b06b62e807a3dc682a43f08c8b1db3633674d
 
 PKG_FLAGS:=nonshared
 PKG_MAINTAINER:=Oray <developer@oray.com>
