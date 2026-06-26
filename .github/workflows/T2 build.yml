@@ -16,7 +16,7 @@ jobs:
         sdk:
           - 25.12.2
         arch:
-          - aarch64_cortex-a53
+          - mipsel_24kc
 
     steps:
       - uses: actions/checkout@main
@@ -28,7 +28,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.sdk }}
           FEEDNAME: packages_ci
-          PACKAGES: luci-app-phtunnel
+          PACKAGES: phtunnel luci-app-phtunnel
           NO_REFRESH_CHECK: true
           IGNORE_ERRORS: true
           V: s
