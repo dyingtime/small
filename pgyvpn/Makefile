@@ -1,37 +1,41 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/target.mk
 
+ifneq ($(CONFIG_USE_UCLIBC),)
+  PKG_LIBC_V:=uClibc-1.0.x
+else
+  PKG_LIBC_V:=$(LIBC)-unknown
+endif
+
 ifeq ($(ARCH),arm)
   ifneq ($(findstring $(CPU_SUBTYPE), neon neon-vfpv4 vfpv3),)
-	PKG_ARCH_PGYYPN:=arm_$(CPU_TYPE)_$(CPU_SUBTYPE)-$(LIBC)-unknown
-  else ifneq ($(findstring $(CPU_TYPE), cortex-a9),)
-	PKG_ARCH_PGYYPN:=arm_cortex-a9-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=arm_$(CPU_TYPE)_$(CPU_SUBTYPE)-$(PKG_LIBC_V)
   else
-	PKG_ARCH_PGYYPN:=arm_cortex-a7-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=arm_cortex-a7-$(PKG_LIBC_V)
   endif
 endif
 ifeq ($(ARCH),aarch64)
   ifneq ($(findstring $(CPU_TYPE), cortex-a53 cortex-a72),)
-	PKG_ARCH_PGYYPN:=aarch64_$(CPU_TYPE)-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=aarch64_$(CPU_TYPE)-$(PKG_LIBC_V)
   else
-	PKG_ARCH_PGYYPN:=aarch64_generic-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=aarch64_generic-$(PKG_LIBC_V)
   endif
 endif
 ifeq ($(ARCH),mips)
-	PKG_ARCH_PGYYPN:=mips_24kc-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=mips_24kc-$(PKG_LIBC_V)
 endif
 ifeq ($(ARCH),mipsel)
   ifneq ($(findstring $(CPU_TYPE), 24kec 74kc 1004kc),)
-	PKG_ARCH_PGYYPN:=$(ARCH)_$(CPU_TYPE)-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=$(ARCH)_$(CPU_TYPE)-$(PKG_LIBC_V)
   else
-	PKG_ARCH_PGYYPN:=mipsel_24kc-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=mipsel_24kc-$(PKG_LIBC_V)
   endif
 endif
 ifeq ($(BOARD),x86)
   ifeq ($(ARCH),x86_64)
-	PKG_ARCH_PGYYPN:=x86_64-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=x86_64-$(PKG_LIBC_V)
   else
-	PKG_ARCH_PGYYPN:=i386_pentium-mmx-$(LIBC)-unknown
+	PKG_ARCH_PGYYPN:=i386_pentium-mmx-$(PKG_LIBC_V)
   endif
 endif
 
@@ -64,37 +68,16 @@ define Package/pgyvpn/description
   system, traffic monitoring, cloud application access, virtual serial port, etc.
 endef
 
-define Download/oraysl
+define Download/extra
   FILE:=pgyvpn_oraysl
   URL:=$(PKG_SOURCE_URL)
   HASH:=skip
 endef
-
-PKG_LIB_VER:=3.0.9
-define Download/libssl
-  FILE:=libssl.so.1.1
-  URL:=https://mirrors.oray.com/orayos/packages/$(PKG_NAME)/$(PKG_ARCH_PGYYPN)/$(PKG_LIB_VER)/bin
-  HASH:=skip
-endef
-
-define Download/libcrypto
-  FILE:=libcrypto.so.1.1
-  URL:=https://mirrors.oray.com/orayos/packages/$(PKG_NAME)/$(PKG_ARCH_PGYYPN)/$(PKG_LIB_VER)/bin
-  HASH:=skip
-endef
-
-define Download/oraysl
-  FILE:=pgyvpn_oraysl
-  URL:=$(PKG_SOURCE_URL)
-  HASH:=skip
-endef
-$(eval $(call Download,libssl))
-$(eval $(call Download,libcrypto))
-$(eval $(call Download,oraysl))
+$(eval $(call Download,extra))
 
 define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
-	mv $(DL_DIR)/{pgyvpn_oraysl,pgyvpnsvr,libssl.so.1.1,libcrypto.so.1.1} $(PKG_BUILD_DIR)
+	mv $(DL_DIR)/{pgyvpn_oraysl,pgyvpnsvr} $(PKG_BUILD_DIR)
 	chmod +x $(PKG_BUILD_DIR)/{pgyvpn_oraysl,pgyvpnsvr}
 endef
 
@@ -108,10 +91,8 @@ define Package/pgyvpn/install
 	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/usr/share/pgyvpn
-	$(INSTALL_DIR) $(1)/usr/lib
 
 	$(CP) $(PKG_BUILD_DIR)/{pgyvpn_oraysl,pgyvpnsvr} $(1)/usr/sbin
-	$(CP) $(PKG_BUILD_DIR)/{libssl.so.1.1,libcrypto.so.1.1} $(1)/usr/lib
 	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d
 	$(INSTALL_CONF) ./files/etc/config/* $(1)/etc/config
 	$(INSTALL_BIN) ./files/etc/hotplug.d/iface/* $(1)/etc/hotplug.d/iface
